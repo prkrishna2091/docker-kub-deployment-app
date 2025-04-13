@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-kub-deployment-app
+  labels:
+    app: docker-kub-deployment-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: docker-kub-deployment-app
+  template:
+    metadata:
+      name: docker-kub-deployment-app
+      labels:
+        app: docker-kub-deployment-app
+    spec:
+      containers:
+        - name: docker-kub-deployment-app
+          image: krish2091/docker-kub-deployment-app:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9328
+              protocol: TCP
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: docker-kub-deployment-service-app
+spec:
+  selector:
+    app: docker-kub-deployment-app
+  ports:
+    - protocol: TCP
+      port: 9328
+      targetPort: 9328
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: docker-kub-deployment-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /dckrkubeapp
+            pathType: Prefix
+            backend:
+              service:
+                name: docker-kub-deployment-service-app
+                port:
+                  number: 9328
