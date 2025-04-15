@@ -12,4 +12,4 @@ COPY target/docker-kub-deployment-app-0.0.1-SNAPSHOT.jar docker-kub-deployment-a
 EXPOSE 9128
 
 # Run the jar file
-ENTRYPOINT ["java", "-jar", "docker-kub-deployment-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "docker-kub-deployment-app-0.0.1-SNAPSHOT.jar"]
