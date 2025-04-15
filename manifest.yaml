@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: docker-kub-deployment-app
-          image: krish2091/docker-kub-deployment-app:v1
+          image: krish2091/docker-kub-deployment-app:v2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9328
